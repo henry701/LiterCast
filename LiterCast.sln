@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiterCast", "LiterCast\Lite
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FmRadio", "ConsoleApp\FmRadio.csproj", "{479119D4-7A22-4245-8DB3-DBA9333B4C3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FmShell", "..\FmShell\FmShell\FmShell.csproj", "{5A7CF87D-5B4F-4051-B910-20DF47D498CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FmShell", "sub_modules\FmShell\FmShell\FmShell.csproj", "{38C8C273-6BB0-40CA-A563-07A3B545EC8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{479119D4-7A22-4245-8DB3-DBA9333B4C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{479119D4-7A22-4245-8DB3-DBA9333B4C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{479119D4-7A22-4245-8DB3-DBA9333B4C3E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A7CF87D-5B4F-4051-B910-20DF47D498CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A7CF87D-5B4F-4051-B910-20DF47D498CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A7CF87D-5B4F-4051-B910-20DF47D498CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A7CF87D-5B4F-4051-B910-20DF47D498CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38C8C273-6BB0-40CA-A563-07A3B545EC8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38C8C273-6BB0-40CA-A563-07A3B545EC8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38C8C273-6BB0-40CA-A563-07A3B545EC8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38C8C273-6BB0-40CA-A563-07A3B545EC8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

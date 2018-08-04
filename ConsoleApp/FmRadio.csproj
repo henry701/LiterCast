@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FmShell\FmShell\FmShell.csproj" />
     <ProjectReference Include="..\LiterCast\LiterCast.csproj" />
   </ItemGroup>
 

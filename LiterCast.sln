@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiterCast", "LiterCast\LiterCast.csproj", "{FA7C1614-3562-411E-A2A0-7E4F2095A0B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FmRadio", "ConsoleApp\FmRadio.csproj", "{479119D4-7A22-4245-8DB3-DBA9333B4C3E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FmShell", "..\FmShell\FmShell\FmShell.csproj", "{5A7CF87D-5B4F-4051-B910-20DF47D498CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA7C1614-3562-411E-A2A0-7E4F2095A0B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA7C1614-3562-411E-A2A0-7E4F2095A0B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA7C1614-3562-411E-A2A0-7E4F2095A0B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA7C1614-3562-411E-A2A0-7E4F2095A0B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{479119D4-7A22-4245-8DB3-DBA9333B4C3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{479119D4-7A22-4245-8DB3-DBA9333B4C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{479119D4-7A22-4245-8DB3-DBA9333B4C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{479119D4-7A22-4245-8DB3-DBA9333B4C3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A7CF87D-5B4F-4051-B910-20DF47D498CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A7CF87D-5B4F-4051-B910-20DF47D498CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A7CF87D-5B4F-4051-B910-20DF47D498CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A7CF87D-5B4F-4051-B910-20DF47D498CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8270FFC9-3154-4D89-B31A-7C0D06960C87}
+	EndGlobalSection
+EndGlobal

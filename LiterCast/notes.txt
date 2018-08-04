@@ -1,0 +1,40 @@
+http://ample.sourceforge.net/developers.shtml
+https://cast.readme.io/v1.0/docs/icy
+http://www.smackfu.com/stuff/programming/shoutcast.html
+
+http://www.gigamonkeys.com/book/practical-a-shoutcast-server.html
+
+Metadata message format
+	A metadata message starts with one byte that specifies the length, then the message itself and last one or more NULL bytes that pad the rest of the message and indicate the end of it.
+	An illustration is always nice:
+
+	ShoutCast Metadata format
+
+	Length - One byte, the value of this byte * 16 is the length of the rest of the message. If the title hasn't changed since the last metadata message, this should be zero and the only byte in the message.
+	Message - Usually the title of the song currently playing, encoded in ASCII.
+	Padding - At least one zero byte must end the message and there must be enough zeros to make the part after the length byte a multiple of 16. Thus a message of 15 bytes would have 1 zero byte following it and a message of 16 bytes would have 16 zero bytes following it.
+	Let's add an example, if we wanted to send the song title "U2 - One" to the client we would add the following data to the stream:
+
+	Hex:   0x01 0x55 0x32 0x20 0x2D 0x20 0x4F 0x6E 0x65 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00
+	ASCII: N/A  U    2    SPC  -    SPC  O    n    e    NUL  NUL  NUL  NUL  NUL  NUL  NUL  NUL
+
+Other HTTP reply headers
+	These are other headers that can (optionally) be included with the HTTP reply
+
+	icy-notice1 - An informational message.
+	icy-notice2 - Another informational message, probably "icy-notice3", "icy-notice4" etc. can also be used.
+	icy-name - The name of the stream that the server is sending, this is usually displayed along with the current song title in clients.
+	icy-genre - The genre of the music served.
+	icy-url - An URL associated with the stream, usually the homepage of the "webradio" or similar.
+	icy-pub - It indicates if the stream is public or private (0 or 1)
+	icy-br - BitRate, seems mostly informational as most clients encountered seem to support VBR (Variable BitRate).
+	
+	icy-notice1:<BR>This stream requires <a href="http://www.winamp.com">Winamp</a><BR>
+	icy-notice2:SHOUTcast DNAS/posix(linux x86) v2.4.7.256<BR>
+		It is believed icy-notice[int] is valid, at least to 0-9
+
+	icy-notice1:<BR>Notícia Settável por Cliente<BR>
+	icy-notice2:LiterCast GetVersion()(GetOs())<BR>
+	
+	
+	

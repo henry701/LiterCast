@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LiterCast\LiterCast.csproj" />
+    <ProjectReference Include="..\sub_modules\FmShell\FmShell\FmShell.csproj" />
   </ItemGroup>
 
 </Project>

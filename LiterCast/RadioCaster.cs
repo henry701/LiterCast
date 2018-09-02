@@ -16,6 +16,7 @@ namespace LiterCast
 
         public RadioInfo RadioInfo { get; private set; }
 
+        public Task RunningTask { get; private set; }
         public bool IsStarted { get; private set; }
         public IAudioSource CurrentSource { get; private set; }
 
@@ -41,14 +42,15 @@ namespace LiterCast
             SpinWait.SpinUntil(() => !IsStarted);
         }
 
-        public void Start()
+        public Task Start()
         {
             if(IsStarted)
             {
-                return;
+                return RunningTask;
             }
-            Task.Run((Action) EventLoop);
+            RunningTask = Task.Run((Action) EventLoop);
             SpinWait.SpinUntil(() => IsStarted);
+            return RunningTask;
         }
 
         private async void EventLoop()

@@ -18,26 +18,16 @@ namespace LiterCast
 
         private RadioCastConnectListener Listener { get; set; }
         private RadioCaster Caster { get; set; }
+        public IPEndPoint Endpoint { get; private set; }
 
-        public RadioCastServer(TcpListener tcpListener)
+        public RadioCastServer(IPEndPoint endpoint)
         {
-            Listener = new RadioCastConnectListener(new RadioInfo(MetadataInterval), tcpListener);
+            Endpoint = endpoint;
+            Listener = new RadioCastConnectListener(new RadioInfo(MetadataInterval), Endpoint);
             Init();
         }
 
-        public RadioCastServer(params string[] endpoints)
-        {
-            Listener = new RadioCastConnectListener(new RadioInfo(MetadataInterval), endpoints);
-            Init();
-        }
-
-        public RadioCastServer(int metadataInterval, TcpListener tcpListener) : this(tcpListener)
-        {
-            ValidateMetadataInterval(metadataInterval);
-            MetadataInterval = metadataInterval;
-        }
-
-        public RadioCastServer(int metadataInterval, params string[] endpoints) : this(endpoints)
+        public RadioCastServer(int metadataInterval, IPEndPoint endpoint) : this(endpoint)
         {
             ValidateMetadataInterval(metadataInterval);
             MetadataInterval = metadataInterval;
@@ -48,10 +38,11 @@ namespace LiterCast
             Caster.AddTrack(track);
         }
 
-        public void Start()
+        public Task Start()
         {
             Listener.Start();
-            Caster.Start();
+            var casterTask = Caster.Start();
+            return casterTask;
         }
 
         public void Stop()

@@ -69,7 +69,7 @@ namespace LiterCast
                     string res;
                     try
                     {
-                        res = task.Result;
+                        res = await task;
                     }
                     catch (AggregateException)
                     {

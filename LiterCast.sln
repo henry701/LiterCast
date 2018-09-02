@@ -5,10 +5,6 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiterCast", "LiterCast\LiterCast.csproj", "{FA7C1614-3562-411E-A2A0-7E4F2095A0B2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RadioConsoleApp", "ConsoleApp\RadioConsoleApp.csproj", "{479119D4-7A22-4245-8DB3-DBA9333B4C3E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FmShell", "sub_modules\FmShell\FmShell\FmShell.csproj", "{38C8C273-6BB0-40CA-A563-07A3B545EC8B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,14 +15,6 @@ Global
 		{FA7C1614-3562-411E-A2A0-7E4F2095A0B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA7C1614-3562-411E-A2A0-7E4F2095A0B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA7C1614-3562-411E-A2A0-7E4F2095A0B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{479119D4-7A22-4245-8DB3-DBA9333B4C3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{479119D4-7A22-4245-8DB3-DBA9333B4C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{479119D4-7A22-4245-8DB3-DBA9333B4C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{479119D4-7A22-4245-8DB3-DBA9333B4C3E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38C8C273-6BB0-40CA-A563-07A3B545EC8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38C8C273-6BB0-40CA-A563-07A3B545EC8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38C8C273-6BB0-40CA-A563-07A3B545EC8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38C8C273-6BB0-40CA-A563-07A3B545EC8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

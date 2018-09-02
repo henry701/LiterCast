@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -19,6 +20,7 @@ namespace LiterCast
 
         public RadioInfo RadioInfo { get; private set; }
         public bool IsStarted { get; private set; }
+        public IPEndPoint Endpoint { get; private set; }
 
         public event EventHandler<INewClientEventArgs> OnNewClient;
 
@@ -28,10 +30,11 @@ namespace LiterCast
             TcpListener = httpListener;
         }
 
-        public RadioCastConnectListener(RadioInfo radioInfo, params string[] endpoints)
+        public RadioCastConnectListener(RadioInfo radioInfo, IPEndPoint endpoint)
         {
             RadioInfo = radioInfo;
-            TcpListener = CreateTcpListener(endpoints);
+            Endpoint = endpoint;
+            TcpListener = CreateTcpListener(endpoint);
         }
 
         public void Start()
@@ -51,14 +54,22 @@ namespace LiterCast
             {
                 return;
             }
-            TcpListener.Stop();
             IsStarted = false;
+            TcpListener.Stop();
         }
 
         private async void ListenCallback(IAsyncResult result)
         {
             // Recursive call to process another request using this same callback
-            TcpListener.BeginAcceptTcpClient(ListenCallback, null);
+            try
+            {
+                TcpListener.BeginAcceptTcpClient(ListenCallback, null);
+            }
+            catch (Exception)
+            {
+                if (IsStarted) throw; //don't swallow too much!
+                return;
+            }
 
             // Call End to complete the asynchronous operation.
             TcpClient tcpClient = TcpListener.EndAcceptTcpClient(result);
@@ -107,10 +118,10 @@ namespace LiterCast
             }
         }
 
-        private static TcpListener CreateTcpListener(string[] endpoints)
+        private static TcpListener CreateTcpListener(IPEndPoint endpoint)
         {
             // TODO actually respect the endpoints and port and etc
-            TcpListener tcpListener = new TcpListener(IPAddress.Any, 8081);
+            TcpListener tcpListener = new TcpListener(endpoint);
             return tcpListener;
         }
 

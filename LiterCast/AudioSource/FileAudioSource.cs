@@ -23,10 +23,10 @@ namespace LiterCast
             BitRate = tagFile.Properties.AudioBitrate;
             SampleRate = tagFile.Properties.AudioSampleRate;
 
-            byte[] fileBytes = File.ReadAllBytes(filePath);
+            Stream fileStream = File.OpenRead(filePath);
             long contentStartOffset = tagFile.InvariantStartPosition;
-            int contentStartOffsetInt = Convert.ToInt32(contentStartOffset);
-            Stream = new MemoryStream(fileBytes, contentStartOffsetInt, fileBytes.Length - contentStartOffsetInt, writable: false);
+            fileStream.Position = contentStartOffset;
+            Stream = fileStream;
         }
     }
 }

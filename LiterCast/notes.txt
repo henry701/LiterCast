@@ -4,6 +4,8 @@ http://www.smackfu.com/stuff/programming/shoutcast.html
 
 http://www.gigamonkeys.com/book/practical-a-shoutcast-server.html
 
+https://www.codeproject.com/Articles/501521/How-to-convert-between-most-audio-formats-in-NET
+
 Metadata message format
 	A metadata message starts with one byte that specifies the length, then the message itself and last one or more NULL bytes that pad the rest of the message and indicate the end of it.
 	An illustration is always nice:

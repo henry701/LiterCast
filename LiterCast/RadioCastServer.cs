@@ -14,23 +14,22 @@ namespace LiterCast
     {
         private static readonly ILogger LOGGER = LogManager.GetCurrentClassLogger();
 
-        public int MetadataInterval { get; private set; } = 8192;
+        public int MetadataInterval { get; private set; }
 
         private RadioCastConnectListener Listener { get; set; }
         private RadioCaster Caster { get; set; }
         public IPEndPoint Endpoint { get; private set; }
 
-        public RadioCastServer(IPEndPoint endpoint)
+        public RadioCastServer(IPEndPoint endpoint, int metadataInterval = 8192)
         {
             Endpoint = endpoint;
-            Listener = new RadioCastConnectListener(new RadioInfo(MetadataInterval), Endpoint);
-            Init();
-        }
-
-        public RadioCastServer(int metadataInterval, IPEndPoint endpoint) : this(endpoint)
-        {
-            ValidateMetadataInterval(metadataInterval);
             MetadataInterval = metadataInterval;
+            Caster = new RadioCaster(new RadioInfo(MetadataInterval));
+            Listener = new RadioCastConnectListener(Caster, Endpoint);
+            Listener.OnNewClient += (_, eventData) =>
+            {
+                Caster.AddRadioClient(eventData.RadioClient);
+            };
         }
 
         public void AddTrack(IAudioSource track)
@@ -49,15 +48,6 @@ namespace LiterCast
         {
             Listener.Stop();
             Caster.Stop();
-        }
-
-        private void Init()
-        {
-            Caster = new RadioCaster(new RadioInfo(MetadataInterval));
-            Listener.OnNewClient += (_, eventData) =>
-            {
-                Caster.AddRadioClient(eventData.RadioClient);
-            };
         }
 
         private void ValidateMetadataInterval(int metadataInterval)

@@ -18,21 +18,15 @@ namespace LiterCast
 
         private TcpListener TcpListener { get; set; }
 
-        public RadioInfo RadioInfo { get; private set; }
+        public RadioCaster RadioCaster { get; private set; }
         public bool IsStarted { get; private set; }
         public IPEndPoint Endpoint { get; private set; }
 
         public event EventHandler<INewClientEventArgs> OnNewClient;
 
-        public RadioCastConnectListener(RadioInfo radioInfo, TcpListener httpListener)
+        public RadioCastConnectListener(RadioCaster radioCaster, IPEndPoint endpoint)
         {
-            RadioInfo = radioInfo;
-            TcpListener = httpListener;
-        }
-
-        public RadioCastConnectListener(RadioInfo radioInfo, IPEndPoint endpoint)
-        {
-            RadioInfo = radioInfo;
+            RadioCaster = radioCaster;
             Endpoint = endpoint;
             TcpListener = CreateTcpListener(endpoint);
         }
@@ -97,7 +91,7 @@ namespace LiterCast
                 {
                     isIcy = true;
                     await streamWriter.WriteAsync("ICY 200 OK" + "\r\n");
-                    await streamWriter.WriteAsync("icy-metaint: " + Convert.ToString(RadioInfo.MetadataInterval) + "\r\n");
+                    await streamWriter.WriteAsync("icy-metaint: " + Convert.ToString(RadioCaster.RadioInfo.MetadataInterval) + "\r\n");
                 }
                 else
                 {
@@ -112,7 +106,7 @@ namespace LiterCast
 
                 await streamWriter.FlushAsync();
 
-                var radioClient = isIcy ? (IRadioClient) new IcyRadioClient(stream) : new RadioClient(stream);
+                var radioClient = isIcy ? (IRadioClient) new IcyRadioClient(stream, RadioCaster) : new RadioClient(stream);
 
                 OnNewClient?.Invoke(this, new NewClientEventArgs(radioClient));
             }

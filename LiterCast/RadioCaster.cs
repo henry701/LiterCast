@@ -59,29 +59,39 @@ namespace LiterCast
             IsStarted = true;
             while (ShouldRun)
             {
-                SpinWait.SpinUntil(() => TryGetReadableSource());
+                SpinWait.SpinUntil(() => EnsureCurrentSource());
 
                 byte[] buffer = new byte[2048];
                 int bytesRead = await CurrentSource.Stream.ReadAsync(buffer, 0, buffer.Length);
                 LOGGER.Debug("Bytes read: {0}", bytesRead);
 
-                foreach (RadioClient client in RadioClients.ToList())
+                if(bytesRead == 0)
+                {
+                    MoveToNextTrack();
+                    continue;
+                }
+
+                foreach (IRadioClient client in RadioClients.ToList())
                 {
                     var streamTask = RadioStreamTo(client, buffer, bytesRead);
                 }
-                // TODO: Fix this calculation, should be real time
-                // 8 kbits por segundo bitrate
-                // 1 kbyte por segundo byterate (divide por 8 da isso)
-                // 2048 bytes de buffer (2kbytes)
-                // dividindo 1 por 2 dá 0,5 segundos
-                // ta certo isso?
-                // a musica tem 2m16s = 136s
-                // e tem 133kb kkk
-                double secondsToSleep = (bytesRead / 1024d) / ((CurrentSource.BitRate / 8d));
-                LOGGER.Debug("Seconds to sleep: {0}", secondsToSleep);
-                await Task.Run(() => Thread.Sleep(TimeSpan.FromSeconds(Convert.ToDouble(secondsToSleep))));
             }
             IsStarted = false;
+        }
+
+        private bool EnsureCurrentSource()
+        {
+            bool hasSource = HasSource();
+            if(!hasSource)
+            {
+                MoveToNextTrack();
+            }
+            return hasSource;
+        }
+
+        private bool HasSource()
+        {
+            return CurrentSource != null && CurrentSource.Stream != null;
         }
 
         public void AddRadioClient(IRadioClient client)
@@ -99,15 +109,6 @@ namespace LiterCast
             RadioClients.Remove(client);
         }
 
-        private bool TryGetReadableSource()
-        {
-            if(!CanReadCurrentTrack())
-            {
-                MoveToNextTrack();
-            }
-            return CanReadCurrentTrack();
-        }
-
         private void MoveToNextTrack()
         {
             Tracks.Remove(CurrentSource);
@@ -119,14 +120,7 @@ namespace LiterCast
             }
         }
 
-        private bool CanReadCurrentTrack()
-        {
-            return CurrentSource?.Stream.CanRead == true
-                    &&
-                    CurrentSource?.Stream.Position < CurrentSource?.Stream.Length;
-        }
-
-        private async Task RadioStreamTo(RadioClient client, byte[] buffer, int count)
+        private async Task RadioStreamTo(IRadioClient client, byte[] buffer, int count)
         {
             try
             {

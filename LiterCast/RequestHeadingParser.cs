@@ -33,7 +33,6 @@ namespace LiterCast
             {
                 version = null;
             }
-            
 
             MatchCollection headerMatches = headersRegex.Matches(requestStr, firstLineBreak);
 
@@ -51,8 +50,6 @@ namespace LiterCast
                     headers.Add(key, value);
                 }
             }
-
-
 
             return new RequestHeading(verb: verb, headers: headers, protocol: protocol, path: path, version: version);
         }

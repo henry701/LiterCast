@@ -59,19 +59,26 @@ namespace LiterCast
             IsStarted = true;
             while (ShouldRun)
             {
-                SpinWait.SpinUntil(() => ReadableSource());
+                SpinWait.SpinUntil(() => TryGetReadableSource());
 
-                int bufferByteSize = (CurrentSource.BitRate / 4) * 1024;
-                byte[] buffer = new byte[bufferByteSize];
-
-                int bytesRead = await CurrentSource.Stream.ReadAsync(buffer, 0, bufferByteSize);
+                byte[] buffer = new byte[2048];
+                int bytesRead = await CurrentSource.Stream.ReadAsync(buffer, 0, buffer.Length);
+                LOGGER.Debug("Bytes read: {0}", bytesRead);
 
                 foreach (RadioClient client in RadioClients.ToList())
                 {
-                    RadioStreamTo(client, buffer, bytesRead);
+                    var streamTask = RadioStreamTo(client, buffer, bytesRead);
                 }
-
-                decimal secondsToSleep = bytesRead / (decimal) (CurrentSource.BitRate * 1024);
+                // TODO: Fix this calculation, should be real time
+                // 8 kbits por segundo bitrate
+                // 1 kbyte por segundo byterate (divide por 8 da isso)
+                // 2048 bytes de buffer (2kbytes)
+                // dividindo 1 por 2 dá 0,5 segundos
+                // ta certo isso?
+                // a musica tem 2m16s = 136s
+                // e tem 133kb kkk
+                double secondsToSleep = (bytesRead / 1024d) / ((CurrentSource.BitRate / 8d));
+                LOGGER.Debug("Seconds to sleep: {0}", secondsToSleep);
                 await Task.Run(() => Thread.Sleep(TimeSpan.FromSeconds(Convert.ToDouble(secondsToSleep))));
             }
             IsStarted = false;
@@ -92,7 +99,7 @@ namespace LiterCast
             RadioClients.Remove(client);
         }
 
-        private bool ReadableSource()
+        private bool TryGetReadableSource()
         {
             if(!CanReadCurrentTrack())
             {
@@ -106,6 +113,10 @@ namespace LiterCast
             Tracks.Remove(CurrentSource);
             var track = Tracks.Last?.Value;
             CurrentSource = track;
+            if(CurrentSource != null)
+            {
+                LOGGER.Debug("Changed audio source! New source: {0} BitRate={1}", CurrentSource, CurrentSource.BitRate);
+            }
         }
 
         private bool CanReadCurrentTrack()
@@ -115,7 +126,7 @@ namespace LiterCast
                     CurrentSource?.Stream.Position < CurrentSource?.Stream.Length;
         }
 
-        private async void RadioStreamTo(RadioClient client, byte[] buffer, int count)
+        private async Task RadioStreamTo(RadioClient client, byte[] buffer, int count)
         {
             try
             {
@@ -125,6 +136,8 @@ namespace LiterCast
             catch (Exception e)
             {
                 LOGGER.Error(e, "Error while writing to client OutputStream!");
+                RadioClients.Remove(client);
+                // TODO: Notify removal via event?
             }
         }
     }

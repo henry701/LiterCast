@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LiterCast
 {
-    public sealed class StreamingAudioSource : IAudioSource
+    public sealed class StreamAudioSource : IAudioSource
     {
         public string Title { get; }
         public Stream Stream { get; }
@@ -13,7 +13,7 @@ namespace LiterCast
         public int SampleRate { get; }
         public string MimeType { get; }
 
-        public StreamingAudioSource(Stream stream, string title, int bitRate, int sampleRate, string mimeType)
+        public StreamAudioSource(Stream stream, string title, int bitRate, int sampleRate, string mimeType)
         {
             Stream = stream;
             Title = title;

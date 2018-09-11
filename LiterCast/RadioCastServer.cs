@@ -14,17 +14,19 @@ namespace LiterCast
     {
         private static readonly ILogger LOGGER = LogManager.GetCurrentClassLogger();
 
-        public int MetadataInterval { get; private set; }
+        public IPEndPoint Endpoint { get; private set; }
+        public RadioInfo RadioInfo { get; private set; }
+
+        public long TrackCount => Caster.TrackCount;
 
         private RadioCastConnectListener Listener { get; set; }
         private RadioCaster Caster { get; set; }
-        public IPEndPoint Endpoint { get; private set; }
 
-        public RadioCastServer(IPEndPoint endpoint, int metadataInterval = 8192)
+        public RadioCastServer(IPEndPoint endpoint, RadioInfo radioInfo)
         {
             Endpoint = endpoint;
-            MetadataInterval = metadataInterval;
-            Caster = new RadioCaster(new RadioInfo(MetadataInterval));
+            RadioInfo = radioInfo;
+            Caster = new RadioCaster(radioInfo);
             Listener = new RadioCastConnectListener(Caster, Endpoint);
             Listener.OnNewClient += (_, eventData) =>
             {

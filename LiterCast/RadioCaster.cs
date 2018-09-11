@@ -20,6 +20,8 @@ namespace LiterCast
         public bool IsStarted { get; private set; }
         public IAudioSource CurrentSource { get; private set; }
 
+        public int TrackCount => Tracks.Count;
+
         private LinkedList<IRadioClient> RadioClients { get; set; }
         private LinkedList<IAudioSource> Tracks { get; set; }
 

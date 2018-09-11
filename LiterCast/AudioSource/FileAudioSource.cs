@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using static TagLib.File;
 
 namespace LiterCast
 {
@@ -12,6 +13,22 @@ namespace LiterCast
         public int BitRate { get; private set; }
         public int SampleRate { get; private set; }
         public string MimeType { get; private set; }
+
+        public FileAudioSource(Stream fileStream, string title = null)
+        {
+            var tagFile = TagLib.File.Create(new TaglibFileAbstraction(fileStream, title ?? ""));
+
+            Title = BuildTitle(title, tagFile, null);
+
+            MimeType = tagFile.MimeType;
+            BitRate = tagFile.Properties.AudioBitrate;
+            SampleRate = tagFile.Properties.AudioSampleRate;
+            
+            long contentStartOffset = tagFile.InvariantStartPosition;
+            fileStream.Position = contentStartOffset;
+
+            Stream = new ThrottleRateStream(fileStream, BitRate * 125);
+        }
 
         public FileAudioSource(string filePath, string title = null)
         {
@@ -44,6 +61,26 @@ namespace LiterCast
                 return evalTry;
             }
             return filename;
+        }
+
+        private class TaglibFileAbstraction : IFileAbstraction
+        {
+            public string Name { get; set; }
+
+            public Stream ReadStream { get; set; }
+
+            public Stream WriteStream => throw new NotImplementedException();
+
+            public TaglibFileAbstraction(Stream stream, string name = "")
+            {
+                ReadStream = stream;
+                Name = name;
+            }
+
+            public void CloseStream(Stream stream)
+            {
+                stream.Close();
+            }
         }
     }
 }

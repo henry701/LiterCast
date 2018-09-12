@@ -75,7 +75,7 @@ namespace LiterCast
 
                 request.Headers.TryGetValue("Icy-Metadata", out string icyMetaData);
 
-                if (!String.Equals(request.Verb, "GET", StringComparison.InvariantCultureIgnoreCase))
+                if (!string.Equals(request.Verb, "GET", StringComparison.InvariantCultureIgnoreCase))
                 {
                     await streamWriter.WriteAsync("HTTP 405 Method Not Allowed" + "\r\n");
                 }

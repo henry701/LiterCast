@@ -54,7 +54,7 @@ namespace LiterCast
                 return title;
             }
             string evalTry = tagFile?.Tag?.JoinedPerformers + " - " + tagFile?.Tag?.Title;
-            if(String.CompareOrdinal(evalTry, " - ") != 0)
+            if(string.CompareOrdinal(evalTry, " - ") != 0)
             {
                 return evalTry;
             }

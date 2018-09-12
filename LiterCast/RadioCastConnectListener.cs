@@ -109,7 +109,6 @@ namespace LiterCast
 
         private static TcpListener CreateTcpListener(IPEndPoint endpoint)
         {
-            // TODO actually respect the endpoints and port and etc
             TcpListener tcpListener = new TcpListener(endpoint);
             return tcpListener;
         }

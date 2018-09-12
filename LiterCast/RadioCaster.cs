@@ -129,8 +129,8 @@ namespace LiterCast
             catch (Exception e)
             {
                 LOGGER.Error(e, "Error while writing to client OutputStream!");
+                client.OutputStream.Dispose();
                 RadioClients.Remove(client);
-                // TODO: Notify removal via event?
             }
         }
     }

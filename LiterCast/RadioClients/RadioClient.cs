@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace LiterCast
+namespace LiterCast.RadioClients
 {
     internal sealed class RadioClient : IRadioClient
     {

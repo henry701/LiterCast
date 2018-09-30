@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace LiterCast
+namespace LiterCast.AudioSources
 {
     public interface IAudioSource
     {

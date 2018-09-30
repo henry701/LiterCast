@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading;
 
-namespace LiterCast
+namespace LiterCast.Streams
 {
     public class ThrottleRateStream : Stream
     {

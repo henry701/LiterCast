@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Text;
+using LiterCast.AudioSources;
 
-namespace LiterCast
+namespace LiterCast.RadioClients
 {
     internal static class IcyUtils
     {

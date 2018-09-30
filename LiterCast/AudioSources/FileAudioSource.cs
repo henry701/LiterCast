@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using static TagLib.File;
+using LiterCast.Streams;
 
-namespace LiterCast
+namespace LiterCast.AudioSources
 {
     public sealed class FileAudioSource : IAudioSource
     {
@@ -61,7 +61,7 @@ namespace LiterCast
             return filename;
         }
 
-        private class TaglibFileAbstraction : IFileAbstraction
+        private class TaglibFileAbstraction : TagLib.File.IFileAbstraction
         {
             public string Name { get; set; }
 

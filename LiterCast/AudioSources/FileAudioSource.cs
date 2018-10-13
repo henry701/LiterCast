@@ -69,15 +69,16 @@ namespace LiterCast.AudioSources
 
             public Stream WriteStream => throw new NotImplementedException();
 
-            public TaglibFileAbstraction(Stream stream, string name = "")
+            public TaglibFileAbstraction(Stream stream, string name = null)
             {
                 ReadStream = stream;
-                Name = name;
+                Name = (name ?? "UnNamed") + ".mp3";
             }
 
             public void CloseStream(Stream stream)
             {
-                stream.Close();
+                // Do not close the stream, it should be kept open.
+                stream.Position = 0;
             }
         }
     }

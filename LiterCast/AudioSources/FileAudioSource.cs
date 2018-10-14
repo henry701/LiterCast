@@ -4,7 +4,7 @@ using LiterCast.Streams;
 
 namespace LiterCast.AudioSources
 {
-    public sealed class FileAudioSource : IAudioSource
+    public sealed class Mp3FileAudioSource : IAudioSource
     {
         public string Title { get; private set; }
         public Stream Stream { get; private set; }
@@ -12,7 +12,7 @@ namespace LiterCast.AudioSources
         public int SampleRate { get; private set; }
         public string MimeType { get; private set; }
 
-        public FileAudioSource(Stream fileStream, string title = null)
+        public Mp3FileAudioSource(Stream fileStream, string title = null)
         {
             var tagFile = TagLib.File.Create(new TaglibFileAbstraction(fileStream, title ?? ""));
 
@@ -28,7 +28,7 @@ namespace LiterCast.AudioSources
             Stream = new ThrottleRateStream(fileStream, BitRate * 125);
         }
 
-        public FileAudioSource(string filePath, string title = null)
+        public Mp3FileAudioSource(string filePath, string title = null)
         {
             var tagFile = TagLib.File.Create(filePath);
 
@@ -77,7 +77,7 @@ namespace LiterCast.AudioSources
 
             public void CloseStream(Stream stream)
             {
-                // Do not close the stream, it should be kept open.
+                // Do not close the stream, for it should be kept open. Only reset it.
                 stream.Position = 0;
             }
         }

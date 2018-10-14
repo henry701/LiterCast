@@ -14,6 +14,8 @@ namespace LiterCast.Caster
     {
         private static readonly ILogger LOGGER = LogManager.GetCurrentClassLogger();
 
+        private const int BufferSize = 1024 * 64;
+
         public RadioInfo RadioInfo { get; private set; }
 
         public Task RunningTask { get; private set; }
@@ -30,11 +32,14 @@ namespace LiterCast.Caster
 
         private bool ShouldRun { get; set; }
 
+        private ManualResetEvent NewTrackPossiblyAvailable { get; set; }
+
         public RadioCaster(RadioInfo radioInfo)
         {
             RadioInfo = radioInfo;
             RadioClients = new LinkedList<IRadioClient>();
             Tracks = new LinkedList<IAudioSource>();
+            NewTrackPossiblyAvailable = new ManualResetEvent(false);
         }
 
         public void Stop()
@@ -66,9 +71,10 @@ namespace LiterCast.Caster
             {
                 SpinWait.SpinUntil(() => EnsureCurrentSource());
 
-                byte[] buffer = new byte[2048];
+                byte[] buffer = new byte[BufferSize];
+
                 int bytesRead = await CurrentSource.Stream.ReadAsync(buffer, 0, buffer.Length);
-                LOGGER.Debug("Bytes read: {0}", bytesRead);
+                LOGGER.Trace("Bytes read: {0}", bytesRead);
 
                 if(bytesRead == 0)
                 {
@@ -107,6 +113,7 @@ namespace LiterCast.Caster
         public void AddTrack(IAudioSource track)
         {
             Tracks.AddLast(track);
+            NewTrackPossiblyAvailable.Set();
         }
 
         public void RemoveRadioClient(IRadioClient client)
@@ -125,10 +132,21 @@ namespace LiterCast.Caster
                 LOGGER.Debug("Changed audio source! New source: {0} BitRate={1}", CurrentSource, CurrentSource?.BitRate);
                 OnTrackChanged?.Invoke(this, new TrackChangedEventArgs(oldTrack, newTrack));
             }
+            else
+            {
+                NewTrackPossiblyAvailable.WaitOne();
+                NewTrackPossiblyAvailable.Reset();
+            }
         }
 
         private async Task RadioStreamTo(IRadioClient client, byte[] buffer, int count)
         {
+            if(client.OutputStream.CanWrite == false)
+            {
+                client.OutputStream.Dispose();
+                RadioClients.Remove(client);
+                return;
+            }
             try
             {
                 await client.OutputStream.WriteAsync(buffer, 0, count);

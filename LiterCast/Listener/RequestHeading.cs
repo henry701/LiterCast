@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LiterCast
+namespace LiterCast.Listener
 {
     internal sealed class RequestHeading
     {

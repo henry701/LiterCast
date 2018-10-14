@@ -4,9 +4,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using LiterCast.RadioClients;
+using LiterCast.Caster;
 using NLog;
 
-namespace LiterCast
+namespace LiterCast.Listener
 {
     internal class RadioCastConnectListener : IDisposable
     {
@@ -137,7 +138,7 @@ namespace LiterCast
 
         private class NewClientEventArgs : INewClientEventArgs
         {
-            public IRadioClient RadioClient { get; set; }
+            public IRadioClient RadioClient { get; private set; }
 
             public NewClientEventArgs(IRadioClient radioClient)
             {

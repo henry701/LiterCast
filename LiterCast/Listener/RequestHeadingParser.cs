@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NLog;
 
-namespace LiterCast
+namespace LiterCast.Listener
 {
     internal sealed class RequestHeadingParser
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using LiterCast.AudioSources;
+using LiterCast.Caster;
 using LiterCast.RadioClients;
 
 namespace LiterCast.Streams

@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using System.Net;
 using NLog;
 using LiterCast.AudioSources;
+using LiterCast.Listener;
+using LiterCast.Caster;
 
 namespace LiterCast
 {
@@ -13,7 +15,10 @@ namespace LiterCast
         public IPEndPoint Endpoint { get; private set; }
         public RadioInfo RadioInfo { get; private set; }
 
-        public long TrackCount => Caster.TrackCount;
+        public event EventHandler<ITrackChangedEventArgs> OnTrackChanged;
+
+        public int TrackCount => Caster.TrackCount;
+        public int ClientCount => Caster.ClientCount;
 
         private RadioCastConnectListener Listener { get; set; }
         private RadioCaster Caster { get; set; }
@@ -23,6 +28,10 @@ namespace LiterCast
             Endpoint = endpoint;
             RadioInfo = radioInfo;
             Caster = new RadioCaster(radioInfo);
+            Caster.OnTrackChanged += (_, eventData) =>
+            {
+                OnTrackChanged?.Invoke(this, eventData);
+            };
             Listener = new RadioCastConnectListener(Caster, Endpoint);
             Listener.OnNewClient += (_, eventData) =>
             {
@@ -75,6 +84,12 @@ namespace LiterCast
         ~RadioCastServer()
         {
             Dispose(false);
+        }
+
+        public interface ITrackChangedEventArgs
+        {
+            IAudioSource OldTrack { get; }
+            IAudioSource NewTrack { get; }
         }
     }
 }

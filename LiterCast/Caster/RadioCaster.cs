@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using LiterCast.AudioSources;
 using LiterCast.RadioClients;
 using NLog;
+using static LiterCast.RadioCastServer;
 
-namespace LiterCast
+namespace LiterCast.Caster
 {
     internal sealed class RadioCaster
     {
@@ -20,9 +21,12 @@ namespace LiterCast
         public IAudioSource CurrentSource { get; private set; }
 
         public int TrackCount => Tracks.Count;
+        public int ClientCount => RadioClients.Count;
 
         private LinkedList<IRadioClient> RadioClients { get; set; }
         private LinkedList<IAudioSource> Tracks { get; set; }
+
+        public event EventHandler<ITrackChangedEventArgs> OnTrackChanged;
 
         private bool ShouldRun { get; set; }
 
@@ -112,12 +116,14 @@ namespace LiterCast
 
         private void MoveToNextTrack()
         {
+            IAudioSource oldTrack = CurrentSource;
             Tracks.Remove(CurrentSource);
-            var track = Tracks.Last?.Value;
-            CurrentSource = track;
-            if(CurrentSource != null)
+            var newTrack = Tracks.Last?.Value;
+            CurrentSource = newTrack;
+            if(newTrack != oldTrack)
             {
-                LOGGER.Debug("Changed audio source! New source: {0} BitRate={1}", CurrentSource, CurrentSource.BitRate);
+                LOGGER.Debug("Changed audio source! New source: {0} BitRate={1}", CurrentSource, CurrentSource?.BitRate);
+                OnTrackChanged?.Invoke(this, new TrackChangedEventArgs(oldTrack, newTrack));
             }
         }
 
@@ -133,6 +139,18 @@ namespace LiterCast
                 LOGGER.Error(e, "Error while writing to client OutputStream!");
                 client.OutputStream.Dispose();
                 RadioClients.Remove(client);
+            }
+        }
+
+        private class TrackChangedEventArgs : ITrackChangedEventArgs
+        {
+            public IAudioSource OldTrack { get; private set; }
+            public IAudioSource NewTrack { get; private set; }
+
+            public TrackChangedEventArgs(IAudioSource oldTrack, IAudioSource newTrack)
+            {
+                OldTrack = oldTrack;
+                NewTrack = newTrack;
             }
         }
     }

@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="LiterCast.AudioSources.Mp3FileAudioSource" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="3" Width="4" />
+    <NestedTypes>
+      <Class Name="LiterCast.AudioSources.Mp3FileAudioSource.TaglibFileAbstraction" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>AudioSources\FileAudioSource.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAACAAAAAAAAAEQAAAAAAAAAAAAIAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>AudioSources\FileAudioSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="LiterCast.AudioSources.StreamAudioSource" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="5.75" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAAAAAAAEQAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AudioSources\StreamAudioSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="LiterCast.Caster.RadioCaster">
+    <Position X="18.75" Y="0.75" Width="4.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="LiterCast.Caster.RadioCaster.TrackChangedEventArgs" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Caster\RadioCaster.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <AssociationLine Name="RadioInfo" Type="LiterCast.RadioInfo">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.574" Y="0.034" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="RadioClients" Type="LiterCast.RadioClients.IRadioClient">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-2.637" Y="2.582" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAGAACAABSJiQBQAAAQBACAQAIAZAAIAAAAQ=</HashCode>
+      <FileName>Caster\RadioCaster.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RadioInfo" />
+      <Property Name="CurrentSource" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Tracks" />
+      <Property Name="RadioClients" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="LiterCast.Listener.RadioCastConnectListener" BaseTypeListCollapsed="true">
+    <Position X="8" Y="9.25" Width="4.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="LiterCast.Listener.RadioCastConnectListener.NewClientEventArgs" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Listener\RadioCastConnectListener.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Interface Name="LiterCast.Listener.RadioCastConnectListener.INewClientEventArgs" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Listener\RadioCastConnectListener.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Interface>
+    </NestedTypes>
+    <AssociationLine Name="RadioCaster" Type="LiterCast.Caster.RadioCaster">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="7.003" Y="-0.385" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAABAADAAAAAAAEQAAAAAAABAAAAAIAAAEIAAEAA=</HashCode>
+      <FileName>Listener\RadioCastConnectListener.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RadioCaster" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="LiterCast.Listener.RequestHeading">
+    <Position X="0.5" Y="13" Width="7.25" />
+    <TypeIdentifier>
+      <HashCode>IIAAAAAAAAAAAAIAAAAAAABACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Listener\RequestHeading.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LiterCast.Listener.RequestHeadingParser">
+    <Position X="1.5" Y="9.25" Width="6.25" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAACAAAgAAAAAAAEAAAAIAAAAA=</HashCode>
+      <FileName>Listener\RequestHeadingParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LiterCast.RadioClients.IcyRadioClient" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="10.75" Width="4.25" />
+    <AssociationLine Name="RadioCaster" Type="LiterCast.Caster.RadioCaster">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.662" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>RadioClients\IcyRadioClient.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RadioCaster" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="LiterCast.RadioClients.IcyUtils">
+    <Position X="23.25" Y="19.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RadioClients\IcyUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LiterCast.RadioClients.RadioClient" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="12.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RadioClients\RadioClient.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="LiterCast.Streams.IcyInterceptorStream">
+    <Position X="23.25" Y="14.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAEAAAAQAAgGAAAEABwAAACAAAAAAAAAAEIECA=</HashCode>
+      <FileName>Streams\IcyInterceptorStream.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LiterCast.Streams.StreamUtils">
+    <Position X="34.25" Y="14.25" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Streams\StreamUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LiterCast.Streams.ThrottleRateStream">
+    <Position X="27.75" Y="14.25" Width="6.25" />
+    <TypeIdentifier>
+      <HashCode>IAAEAAAAgAAAQAwgGAAAAABgAIQiCAAAAAAAAAEIACA=</HashCode>
+      <FileName>Streams\ThrottleRateStream.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LiterCast.RadioCastServer" BaseTypeListCollapsed="true">
+    <Position X="15.25" Y="9.25" Width="4" />
+    <NestedTypes>
+      <Interface Name="LiterCast.RadioCastServer.ITrackChangedEventArgs" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RadioCastServer.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Interface>
+    </NestedTypes>
+    <AssociationLine Name="RadioInfo" Type="LiterCast.RadioInfo">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.231" Y="0.832" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Caster" Type="LiterCast.Caster.RadioCaster">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.115" Y="0.234" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Listener" Type="LiterCast.Listener.RadioCastConnectListener">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.946" Y="0.088" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAACACAACAAAAMAABAAAAAAAAACgIAQAAIAAAAQ=</HashCode>
+      <FileName>RadioCastServer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RadioInfo" />
+      <Property Name="Caster" />
+      <Property Name="Listener" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="LiterCast.RadioInfo">
+    <Position X="13.25" Y="5.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>RadioInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="LiterCast.AudioSources.IAudioSource">
+    <Position X="6.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAAAAAAAEQAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AudioSources\IAudioSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="LiterCast.RadioClients.IRadioClient">
+    <Position X="20.75" Y="10.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RadioClients\IRadioClient.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

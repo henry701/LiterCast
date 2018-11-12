@@ -17,7 +17,7 @@ namespace LiterCast.Streams
 
         public RadioCaster RadioCaster { get; private set; }
 
-        public IAudioSource AudioSource { get; set; }
+        public IAudioSource AudioSource { get; private set; }
 
         public IcyInterceptorStream(Stream stream, RadioCaster radioCaster)
         {

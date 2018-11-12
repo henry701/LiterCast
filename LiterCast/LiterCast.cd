@@ -56,8 +56,8 @@
       <Property Name="CurrentSource" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Tracks" />
       <Property Name="RadioClients" />
+      <Property Name="Tracks" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="LiterCast.Listener.RadioCastConnectListener" BaseTypeListCollapsed="true">
@@ -93,7 +93,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="LiterCast.Listener.RequestHeading">
-    <Position X="0.5" Y="13" Width="7.25" />
+    <Position X="0.5" Y="11.5" Width="7.25" />
     <TypeIdentifier>
       <HashCode>IIAAAAAAAAAAAAIAAAAAAABACAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Listener\RequestHeading.cs</FileName>
@@ -172,14 +172,14 @@
         <Position X="0.231" Y="0.832" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="Caster" Type="LiterCast.Caster.RadioCaster">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.115" Y="0.234" />
-      </MemberNameLabel>
-    </AssociationLine>
     <AssociationLine Name="Listener" Type="LiterCast.Listener.RadioCastConnectListener">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.946" Y="0.088" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Caster" Type="LiterCast.Caster.RadioCaster">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.115" Y="0.234" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -188,8 +188,8 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="RadioInfo" />
-      <Property Name="Caster" />
       <Property Name="Listener" />
+      <Property Name="Caster" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>

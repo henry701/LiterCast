@@ -19,6 +19,7 @@ namespace LiterCast
 
         public int TrackCount => Caster.TrackCount;
         public int ClientCount => Caster.ClientCount;
+        public IAudioSource CurrentSource => Caster.CurrentSource;
 
         private RadioCastConnectListener Listener { get; set; }
         private RadioCaster Caster { get; set; }

@@ -15,6 +15,9 @@ namespace LiterCast.Streams
 
         public int BytesPerSecond { get; private set; }
         public double RefreshNanos { get; private set; }
+        public bool IsStarted { get; private set; }
+
+        private readonly object IsStartedLock = new object();
 
         private readonly Stopwatch Watch = new Stopwatch();
         private double SkewNanos { get; set; }
@@ -24,7 +27,18 @@ namespace LiterCast.Streams
             UnderlyingStream = stream;
             BytesPerSecond = bytesPerSecond;
             RefreshNanos = refreshNanos;
+        }
 
+        private void StartThrottlingIfNotStarted()
+        {
+            lock (IsStartedLock)
+            {
+                if (IsStarted == true)
+                {
+                    return;
+                }
+                IsStarted = true;
+            }
             Watch.Start();
             Task.Run(() =>
             {
@@ -101,6 +115,10 @@ namespace LiterCast.Streams
 
         public override int Read(byte[] buffer, int offset, int count)
         {
+            if(!IsStarted)
+            {
+                StartThrottlingIfNotStarted();
+            }
             // Wait for resources to become available on the other end, OR for the stream to end
             SpinWait.SpinUntil(() => AvailableBytes > 0 || (TotalAvailableBytes >= UnderlyingStream.Length));
             int readCount = Math.Min(count, AvailableBytes);
